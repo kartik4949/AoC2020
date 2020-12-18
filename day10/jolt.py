@@ -30,7 +30,6 @@ original_adap.append(0)
 original_adap.append(max(original_adap)+3)
 original_adap = sorted(original_adap)
 connection = []
-visited_nodes = set()
 from itertools import chain
 for i in range(len(original_adap)):
     if i == (len(original_adap) -1):
