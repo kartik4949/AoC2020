@@ -26,6 +26,7 @@ print(get_function(buses_ids))
 
 with open("input.txt") as r:
     buses = r.readlines()
+import numpy as np
 
 timestamp = int(buses[0])
 def get_busids(buses_ids):
@@ -42,23 +43,15 @@ def get_function(buses_ids):
             timestamps.append(t)
         except:
             pass
-    init_timestamp = 100000000000000
-    def check(t,b,timestmp):
-        for ti,bi in zip(t,b):
-            if (timestmp+ti)%bi != 0:
-                return False
-        return True
-    def check2(t,b,timestmp):
-        for ti,bi in zip(t,b):
-            if bi == 41 or bi == 659:
-                if timestmp%bi != 0:
-                    return False
-        return True
 
-    while True:
-        if check2(timestamps,buses,init_timestamp):
-            if check(timestamps,buses, init_timestamp-41):
-                return init_timestamp
-        init_timestamp+=41*659
+    N = np.prod(buses)
+    w = []
+    timestamps = list(map(lambda x: (-x[0])%x[1], zip(timestamps,buses) ))
+    for bus,a in zip(buses,timestamps):
+        zi = int(N/bus)
+        yi = pow(zi,-1,bus)
+        w.append(a*zi*yi)
+    return sum(w)%N
+
+
 print(get_function(buses[1]))
-
