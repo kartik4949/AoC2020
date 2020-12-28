@@ -18,7 +18,7 @@ def get_function(buses_ids):
     buses_ids = get_busids(buses_ids)
     closes_buses = list(map(lambda x: abs(timestamp%x - x), buses_ids))
     busid = buses_ids[closes_buses.index(min(closes_buses))]
-    return busid*min(closes_buses) 
+    return busid*min(closes_buses)
 buses_ids = buses[1]
 print(get_function(buses_ids))
 
